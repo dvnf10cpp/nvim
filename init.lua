@@ -239,6 +239,18 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+vim.opt.tabstop = 4
+-- set the number of spaces used for indentation
+vim.opt.shiftwidth = 4
+-- set the number of spaces used when pressing the tab key
+vim.opt.softtabstop = 4
+
+-- Set toggleterm to use 24-bit colors
+vim.o.termguicolors = true
+
+-- Set the bold color for the terminal
+vim.cmd('highlight TermBold cterm=bold ctermfg=White ctermbg=Black gui=bold guifg=#FFFFFF guibg=#000000')
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
