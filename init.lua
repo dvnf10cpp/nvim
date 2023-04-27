@@ -46,6 +46,7 @@ vim.g.maplocalleader = ' '
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+-- local toggleterm = require('user.toggleterm')
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
     'git',
@@ -90,7 +91,17 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-
+  {'akinsho/toggleterm.nvim', version = "*", config = true},
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+    require("nvim-tree").setup {}
+    end,
+  }, 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
@@ -237,6 +248,20 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', {noremap = true})
+-- Require the toggleterm module
+local toggleterm = require('user.toggleterm')
+
+-- Configure toggleterm
+
+-- Create key mapping to toggle the terminal
+vim.api.nvim_set_keymap('n', '<C-d>', '<cmd>ToggleTerm<CR>', {noremap = true, silent = true})
+
+-- Auto-completion of brackets
+vim.api.nvim_set_keymap('i', '{', '{}<Left>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '[', '[]<Left>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '(', '()<Left>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '"', '""<Left>', { noremap = true, silent = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
