@@ -93,6 +93,9 @@ require('lazy').setup({
   },
   {'akinsho/toggleterm.nvim', version = "*", config = true},
   {
+    'andweeb/presence.nvim',
+  },
+  {
     "nvim-tree/nvim-tree.lua",
     version = "*",
     dependencies = {
@@ -101,7 +104,7 @@ require('lazy').setup({
     config = function()
     require("nvim-tree").setup {}
     end,
-  }, 
+  },
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
@@ -263,6 +266,8 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', {noremap = true})
 -- Require the toggleterm module
 local toggleterm = require('user.toggleterm')
+-- local nvimpresence = require('user.presence-nvim')
+-- The setup config table shows all available config options with their 
 
 -- Configure toggleterm
 
@@ -274,6 +279,27 @@ vim.api.nvim_set_keymap('i', '{', '{}<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '[', '[]<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '(', '()<Left>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '"', '""<Left>', { noremap = true, silent = true })
+
+-- Bind ctrl+q to :q!
+vim.api.nvim_set_keymap('n', '<C-q>', ':q!<CR>', { noremap = true })
+
+-- Bind ctrl+s to :w
+vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true })
+
+-- Bind ctrl+s+q to :wq
+vim.api.nvim_set_keymap('n', '<C-s-q>', ':wq<CR>', { noremap = true })
+
+function JavaCompileRun()
+  vim.fn.jobstart('javac -d bin src/Main.java', {
+    cwd = vim.fn.expand('%:p:h')
+  })
+  vim.fn.jobstart('java -cp bin Main', {
+    cwd = vim.fn.expand('%:p:h')
+  })
+end
+
+vim.api.nvim_set_keymap('n', '<C-j>r', '<cmd>call JavaCompileRun()<CR>', {noremap = true})
+
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
