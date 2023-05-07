@@ -289,17 +289,10 @@ vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true })
 -- Bind ctrl+s+q to :wq
 vim.api.nvim_set_keymap('n', '<C-s-q>', ':wq<CR>', { noremap = true })
 
-function JavaCompileRun()
-  vim.fn.jobstart('javac -d bin src/Main.java', {
-    cwd = vim.fn.expand('%:p:h')
-  })
-  vim.fn.jobstart('java -cp bin Main', {
-    cwd = vim.fn.expand('%:p:h')
-  })
-end
+-- Bind ctrl+c to :%y+
+vim.api.nvim_set_keymap('n','<C-c>', ':%y+<CR>', { noremap = true})
 
-vim.api.nvim_set_keymap('n', '<C-j>r', '<cmd>call JavaCompileRun()<CR>', {noremap = true})
-
+vim.g.java_warnings = false
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
